@@ -1,0 +1,325 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("fonts/Montserrat-VariableFont_wght.ttf");
+}
+
+@font-face {
+    font-family: "Offside";
+    src: url("fonts/Offside-Regular.ttf");
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Montserrat;
+    color: #303A45;
+}
+
+h2 {
+    font-weight: 700;
+}
+
+p {
+    letter-spacing: 0.32px;
+    font-weight: 500;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+
+#brands-section{
+    background: linear-gradient(180deg, #F3F8FE 30%, rgb(255, 255, 255) 60%);
+}
+
+#about-section{
+    background-color: #F3F8FE;
+}
+
+#description-section{
+    background-color: #E5E7EA;
+}
+
+#calc-section{
+    background-color: #E5E7EA;
+}
+
+.appear-animation {
+    opacity: 0;
+    animation: fadeIn 0.6s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.appear-animation-result {
+    opacity: 0;
+    animation: fadeIn 0.4s ease-in-out forwards;
+}
+
+
+.btn-switch{
+    font-size: 17px;
+    transition: 0.3s all;
+    text-align: left;
+    width: 100%;
+    color: #333;
+    font-weight: 600;
+    padding: 1.25rem 3rem 1.25rem 3rem;
+    border-radius: 20px;
+}
+
+.btn-switch-active{
+    color: hsl(212, 92%, 41%);
+    background-color: hsl(213, 85%, 97%);
+    margin-left: -20px;
+    transition: 0.3s all;
+
+}
+
+.person-img, .item-person-block, .green-diagram-img {
+    height: 565px;
+}
+
+.item-person-block{
+    transition: 0.5s all;
+    width: 20%;
+}
+
+.selected-person-block {
+    transform-origin: bottom;
+    transform: scale(1);
+    opacity: 1;
+    transition: 0.5s all;
+}
+  
+.non-selected-person-block {
+    transform-origin: bottom;
+    transform: scale(0.5);
+    opacity: 0.5;
+    transition: 0.5s all;
+}
+
+.green-diagram-img {
+    left: 0;
+    top: 0;
+    max-width: unset;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.person-img {
+    max-width: unset;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.input-green-diagram-block{
+    position: absolute;
+    width: 62.6px;
+    height: 28.8px;
+}
+
+.input-green-diagram {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    font-size: 95%;
+    text-align: center;
+    font-weight: 600;
+    border: 3px solid #28D3A1;
+}
+
+.input-green-diagram-label{
+    display: flex;
+    align-items: flex-end;
+    font-weight: 600;
+    position: absolute;
+    top: -44px;
+    left: -46px;
+    width: 160px;
+    height: 40px;
+}
+
+.calc-option-bar{
+    border-radius: 50px;
+    font-weight: 600;
+    padding: 2px 5px;
+    border: 2px solid #808891;
+    color: #7e868f;
+    height: 30px;
+    width: 220px;
+}
+
+.carousel .slide img {
+    width: unset;
+}
+
+.carousel .control-dots{
+    display: none;
+}
+
+.react-multi-carousel-list {
+    position: unset;
+}
+
+.carousel-arrow {
+    border-width: 2px;
+    border-style: solid;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+}
+
+.shadow-box{
+    box-shadow: 0 0 40px rgba(134, 134, 134, 0.199);
+}
+
+
+.gradient-background{
+    background: linear-gradient(90deg, #9AEDD5 0%, #28D3A1 62%, #17CF99 91%);
+}
+
+.size-result{
+    position: absolute;
+    font-family: Offside;
+    left: 0;
+    top: 30%;
+    width: 100%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bg-adminlogin{
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(90deg, #F3F8FE 0%, #F3F8FE 50%, #FFFFFF 50%, #FFFFFF 100%)
+}
+
+.input-loginpage{
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    border-bottom: 3px solid #2E73B4;
+    padding: 2px 10px 2px 30px;
+    font-weight: 500;
+    width: 100%;
+    font-size: 16px;
+}
+
+
+
+
+
+
+@media screen and (min-width: 768px){
+    .selected-person {
+        width: 60%;
+        transition: 0.5s all;
+    }
+
+}
+
+
+@media screen and (max-width: 767.98px) {
+    .non-selected-person-block {
+        transform: scale(1) !important;
+        opacity: 1 !important;
+    }
+    .calc-option-bar{
+        width: unset;
+    }
+    .item-person-block{
+        width: unset;
+    }
+    .translate-left{
+        margin-left: -90px;
+    }
+    .btn-switch{
+        font-size: 13px;
+        padding: 10px 20px 10px 20px;
+        width: unset;
+        text-align: center;
+        color: #686868;
+
+    }
+    .btn-switch-active{
+        margin-left: unset;
+        color: hsl(0, 0%, 0%) !important;
+        background-color: unset !important;
+    }
+
+    .person-img, .item-person-block, .green-diagram-img {
+        height: 500px;
+    }
+
+    .bg-adminlogin{
+
+        background: linear-gradient(180deg, #F3F8FE 0%, #F3F8FE 50%, #FFFFFF 50%, #FFFFFF 100%)
+    }
+    
+
+}
+
+@media screen and (max-width: 375px) {
+
+    .person-img, .item-person-block, .green-diagram-img {
+        height: 350px;
+    }
+
+    .translate-left{
+        margin-left: -100px;
+    }
+
+    .input-green-diagram {
+        width: 45px;
+        height: 20px;
+        border-radius: 6px;
+        font-size: 70%;
+        border: 2px solid #28D3A1;
+    }
+
+    .input-green-diagram-label{
+        display: flex;
+        align-items: flex-end;
+        font-weight: 600;
+        position: absolute;
+        top: -22px;
+        left: -25px;
+        width: 120px;
+        height: 20px;
+        z-index: 0;
+    }
+}
