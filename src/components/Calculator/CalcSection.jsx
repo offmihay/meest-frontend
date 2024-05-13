@@ -101,8 +101,10 @@ export function CalcSection({ brands }) {
 
   const handleCalc = () => {
     postJson("api/v1/calc", {
-      selectedBrand,
-      selectedCl,
+      gender: selectedGender,
+      brand: selectedBrand,
+      cloth: selectedCl,
+      inputData: inputData,
     })
       .then((data) => {
         // handle response

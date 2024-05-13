@@ -15,7 +15,7 @@ export function PersonInfo(props) {
         <div className="relative h-full">
           <img
             onClick={onClick}
-            src={`${import.meta.env.BASE_URL}/assets/images/${gender}/main.png`}
+            src={`${import.meta.env.BASE_URL}assets/images/${gender}/main.png`}
             className={`person-img cursor-pointer ${
               isSelected ? "selected-person-block" : "non-selected-person-block"
             }`}

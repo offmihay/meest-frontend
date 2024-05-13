@@ -13,7 +13,7 @@ export function ModalResult({ onClickClose, gender, clothesType }) {
 
             return (
               <div ref={measureRef} className="max-w-[180px] sm:max-w-[250px] m-auto relative">
-                <img src={`${import.meta.env.BASE_URL}/assets/images/size-info.png`} alt="" />
+                <img src={`${import.meta.env.BASE_URL}assets/images/size-info.png`} alt="" />
                 <div className="size-result">
                   <span style={{ fontSize }} className="select-none">
                     S
@@ -63,7 +63,7 @@ export function ModalResult({ onClickClose, gender, clothesType }) {
         className="absolute border-2 w-9 h-9 sm:w-12 sm:h-12 flex justify-center items-center rounded-full right-5 top-4 md:right-8 md:top-5"
       >
         <img
-          src={`${import.meta.env.BASE_URL}/assets/images/close-icon.png`}
+          src={`${import.meta.env.BASE_URL}assets/images/close-icon.png`}
           className="w-8 h-8 sm:w-11 sm:h-11"
           alt=""
         />

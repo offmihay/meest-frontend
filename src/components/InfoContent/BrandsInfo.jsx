@@ -9,7 +9,7 @@ export function BrandsInfo({ brands, isLoading }) {
       {isLoading && (
         <div className="flex justify-center">
           <img
-            src={`${import.meta.env.BASE_URL}/assets/images/brands-loading-indicator.svg`}
+            src={`${import.meta.env.BASE_URL}assets/images/brands-loading-indicator.svg`}
             className="h-20"
             alt=""
           />
