@@ -26,7 +26,7 @@ export function PersonInfo(props) {
                 <img
                   src={`${
                     import.meta.env.BASE_URL
-                  }/assets/images/${gender}/parameters/${item}.png`}
+                  }assets/images/${gender}/parameters/${item}.png`}
                   className="absolute green-diagram-img appear-animation"
                   key={item}
                 />
@@ -39,11 +39,11 @@ export function PersonInfo(props) {
                     top: inputPositions[gender][item].top,
                     left: inputPositions[gender][item].left,
                   }}
-                  key={name}
+                  key={item}
                 >
                   <div className="input-green-diagram-label inline-block">
                     <label
-                      htmlFor={name}
+                      htmlFor={item}
                       className="text-[12px] sm:text-sm-p md:text-md-p block w-full text-center appear-animation max-sm:text-[11px]"
                     >
                       {dataNames.parametersList[item]}

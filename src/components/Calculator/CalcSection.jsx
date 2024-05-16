@@ -21,9 +21,11 @@ export function CalcSection({ brands }) {
 
   const [brandsByGender, setbrandsByGender] = useState([]);
   const [clothesByBrand, setclothesByBrand] = useState([]);
+  
+  const [resultSizeData, setResultSizeData] = useState([]);
 
   useEffect(() => {
-    selectedGender != "none" &&
+    if (selectedGender !== "none") {
       fetchJson(`api/brands?gender=${selectedGender}`)
         .then((data) => {
           setbrandsByGender(data);
@@ -31,10 +33,11 @@ export function CalcSection({ brands }) {
         .catch((err) => {
           console.log(err);
         });
+    }
   }, [selectedGender]);
 
   useEffect(() => {
-    selectedBrand != "none" &&
+    if (selectedBrand !== "none") {
       fetchJson(`api/clothes?gender=${selectedGender}&brand=${selectedBrand}`)
         .then((data) => {
           setclothesByBrand(data);
@@ -42,6 +45,7 @@ export function CalcSection({ brands }) {
         .catch((err) => {
           console.log(err);
         });
+    }
   }, [selectedBrand]);
 
   const handleSelectionChange = (newValue, setSelectedValue) => {
@@ -50,6 +54,7 @@ export function CalcSection({ brands }) {
       setInputData({});
     }
   };
+
   const handleGenderClick = (type) => {
     handleSelectionChange(type, setSelectedGender);
     setSelectedBrand("none");
@@ -62,6 +67,7 @@ export function CalcSection({ brands }) {
     setSelectedCl("none");
     setclothesByBrand([]);
   };
+
   const handleClChange = (Cl) => {
     handleSelectionChange(Cl, setSelectedCl);
   };
@@ -71,6 +77,7 @@ export function CalcSection({ brands }) {
       return { ...prevState, [name]: value };
     });
   };
+
   const handleMetricChange = (metric) => {
     setselectedMetric(metric);
   };
@@ -95,25 +102,34 @@ export function CalcSection({ brands }) {
       />
     ));
   };
+  const hasAllKeys = (obj, keys) =>
+    keys.every((key) => key in obj && obj[key] !== "");
 
-  const isFilled = selectedBrand !== "none" && selectedCl !== "none";
-  const isCalcEnabled = isFilled;
+  const isOptionsSelected = () =>
+    selectedBrand !== "none" && selectedCl !== "none";
+
+  const isInputFilled = () =>
+    hasAllKeys(
+      inputData,
+      clothesByBrand.filter((obj) => obj.key == selectedCl)[0].body_parts
+    );
+
+  const isCalcEnabled = isOptionsSelected() && isInputFilled();
 
   const handleCalc = () => {
-    postJson("api/v1/calc", {
+    postJson("api/calculate-size", {
       gender: selectedGender,
       brand: selectedBrand,
       cloth: selectedCl,
       inputData: inputData,
     })
       .then((data) => {
-        // handle response
+        setResultSizeData(data);
+        setShowResultMenu(true); // Показать модальное окно только после получения данных
       })
       .catch((err) => {
         console.error(err);
       });
-
-    setShowResultMenu(true);
   };
 
   return (
@@ -153,7 +169,7 @@ export function CalcSection({ brands }) {
                 )}
               />
               <CustomSelect
-                disabled={clothesByBrand.length == 0}
+                disabled={clothesByBrand.length === 0}
                 value={selectedCl}
                 onChange={handleClChange}
                 options={["none", ...clothesByBrand.map((item) => item.key)]}
@@ -189,10 +205,14 @@ export function CalcSection({ brands }) {
               clothesType={
                 clothesByBrand.filter((obj) => obj.key == selectedCl)[0]
               }
+              resultSizeData={resultSizeData}
             />
           )}
         </div>
-        <Button disabled={!isCalcEnabled} onClick={handleCalc}>
+        <Button
+          disabled={!isCalcEnabled || showResultMenu == true}
+          onClick={handleCalc}
+        >
           Розрахувати
         </Button>
       </div>

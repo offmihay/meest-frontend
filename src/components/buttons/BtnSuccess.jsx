@@ -10,13 +10,12 @@ export function Button({
 }) {
   return (
     <button
-      className="m-5"
+      className="btn-success mt-3 mb-12"
       onClick={onClick}
       style={{
         backgroundColor: color,
-        boxShadow: `0 0 1px 5px ${bordercolor}`,
         width: "10rem",
-        height: "2.8rem",
+        height: "3rem",
         borderRadius: "100px",
         color: "white",
       }}
