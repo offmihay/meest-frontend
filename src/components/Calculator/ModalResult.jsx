@@ -7,6 +7,7 @@ export function ModalResult({
   gender,
   clothesType,
   resultSizeData,
+  selectedMetric,
 }) {
   const calculateFontSize = (value, steps) => {
     if (steps === 1 || steps === 2) {
@@ -79,10 +80,11 @@ export function ModalResult({
             </span>
             <br></br>
             {Object.entries(matchingParameters).map(([key, value], index) => (
-              <React.Fragment key={index}>
+              <p key={index}>
                 {key}: {value}
+                &nbsp;{selectedMetric}
                 <br></br>
-              </React.Fragment>
+              </p>
             ))}
           </p>
         </div>
@@ -91,10 +93,10 @@ export function ModalResult({
         <span className="text-[#000000]">Знайдено за такими параметрами:</span>
         <br></br>
         {Object.entries(matchingParameters).map(([key, value], index) => (
-          <React.Fragment key={index}>
-            {key}: {value}
+          <p key={index}>
+            {key}: {value} {selectedMetric}
             <br></br>
-          </React.Fragment>
+          </p>
         ))}
       </p>
       <div className="flex absolute w-full left-0 justify-center bottom-12 sm:bottom-8 md:bottom-16">

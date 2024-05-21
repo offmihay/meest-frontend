@@ -16,13 +16,14 @@ export function CalcSection({ brands }) {
   const [selectedBrand, setSelectedBrand] = useState("none");
   const [selectedCl, setSelectedCl] = useState("none");
   const [inputData, setInputData] = useState({});
-  const [selectedMetric, setselectedMetric] = useState("cm");
+  const [selectedMetric, setSelectedMetric] = useState("cm");
   const [showResultMenu, setShowResultMenu] = useState(false);
 
   const [brandsByGender, setbrandsByGender] = useState([]);
-  const [clothesByBrand, setclothesByBrand] = useState([]);
-  
+  const [clothesByBrand, setClothesByBrand] = useState([]);
+
   const [resultSizeData, setResultSizeData] = useState([]);
+  const [selectedSizeSystem, setSelectedSizeSystem] = useState("");
 
   useEffect(() => {
     if (selectedGender !== "none") {
@@ -40,7 +41,7 @@ export function CalcSection({ brands }) {
     if (selectedBrand !== "none") {
       fetchJson(`api/clothes?gender=${selectedGender}&brand=${selectedBrand}`)
         .then((data) => {
-          setclothesByBrand(data);
+          setClothesByBrand(data);
         })
         .catch((err) => {
           console.log(err);
@@ -52,6 +53,7 @@ export function CalcSection({ brands }) {
     if (newValue !== setSelectedValue) {
       setSelectedValue(newValue);
       setInputData({});
+      setResultSizeData("");
     }
   };
 
@@ -59,17 +61,21 @@ export function CalcSection({ brands }) {
     handleSelectionChange(type, setSelectedGender);
     setSelectedBrand("none");
     setSelectedCl("none");
-    setclothesByBrand([]);
+    setClothesByBrand([]);
   };
 
   const handleBrandChange = (brand) => {
     handleSelectionChange(brand, setSelectedBrand);
     setSelectedCl("none");
-    setclothesByBrand([]);
+    setClothesByBrand([]);
   };
 
   const handleClChange = (Cl) => {
     handleSelectionChange(Cl, setSelectedCl);
+  };
+
+  const handleSizeSystemChange = (system) => {
+    setSelectedSizeSystem(system);
   };
 
   const handleInputChange = (name, value) => {
@@ -79,7 +85,7 @@ export function CalcSection({ brands }) {
   };
 
   const handleMetricChange = (metric) => {
-    setselectedMetric(metric);
+    setSelectedMetric(metric);
   };
 
   const handleCarouselChange = (item) => {
@@ -117,15 +123,40 @@ export function CalcSection({ brands }) {
   const isCalcEnabled = isOptionsSelected() && isInputFilled();
 
   const handleCalc = () => {
+    let convertedData;
+    if (selectedMetric == "in") {
+      convertedData = Object.keys(inputData).reduce((acc, key) => {
+        acc[key] = (parseFloat(inputData[key]) * 2.54).toString();
+        return acc;
+      }, {});
+    } else {
+      convertedData = inputData;
+    }
     postJson("api/calculate-size", {
       gender: selectedGender,
       brand: selectedBrand,
       cloth: selectedCl,
-      inputData: inputData,
+      size_system: selectedSizeSystem == "" ? "INT" : selectedSizeSystem,
+      inputData: convertedData,
     })
       .then((data) => {
-        setResultSizeData(data);
-        setShowResultMenu(true); // Показать модальное окно только после получения данных
+        let convertedData;
+        if (selectedMetric == "in") {
+          convertedData = {
+            ...data,
+            body_parameters: Object.keys(data.body_parameters).reduce(
+              (acc, key) => {
+                acc[key] = (data.body_parameters[key] / 2.54).toFixed(1);
+                return acc;
+              },
+              {}
+            ),
+          };
+        } else {
+          convertedData = data;
+        }
+        setResultSizeData(convertedData);
+        setShowResultMenu(true);
       })
       .catch((err) => {
         console.error(err);
@@ -144,17 +175,11 @@ export function CalcSection({ brands }) {
             Калькулятор розмірів
           </h2>
           <div className="absolute left-5 right-5 mt-4 md:pb-10 md:pl-10 md:right-10">
-            <div className="text-sm-p sm:text-md-p lg:text-lg-p flex items-center gap-3 md:gap-2 justify-around md:mt-[-50px] lg:mt-[-40px] md:flex-col md:items-end md:right-10">
+            <div className="text-sm-p sm:text-md-p lg:text-lg-p flex items-center max-xs:gap-1 gap-3 justify-around md:mt-[-50px] lg:mt-[-40px] md:flex-col md:items-end md:right-10 max-xs:flex-wrap">
               <div className="max-md:hidden">
                 <SwitchBar
                   onChange={handleMetricChange}
                   height={30}
-                ></SwitchBar>
-              </div>
-              <div className="md:hidden">
-                <SwitchBar
-                  onChange={handleMetricChange}
-                  height={24}
                 ></SwitchBar>
               </div>
               <CustomSelect
@@ -181,6 +206,31 @@ export function CalcSection({ brands }) {
                   { none: "Тип одягу" }
                 )}
               />
+              <CustomSelect
+                disabled={
+                  clothesByBrand.length !== 0 && selectedCl !== "none"
+                    ? clothesByBrand.filter(
+                        (item) => item.key === selectedCl
+                      )[0]?.unique_size_systems.length === 0
+                    : true
+                }
+                value={selectedSizeSystem}
+                onChange={handleSizeSystemChange}
+                options={
+                  clothesByBrand.length !== 0 && selectedCl !== "none"
+                    ? clothesByBrand.filter(
+                        (item) => item.key === selectedCl
+                      )[0]?.unique_size_systems || []
+                    : ["none"]
+                }
+                translateMap={{
+                  none: "Система вимірювання",
+                  INT: "INT: Міжнародна система",
+                  EU: "EU: Європейська система",
+                  US: "US: Американська система",
+                  UK: "UK: Британська система",
+                }}
+              />
             </div>
           </div>
           <div className="flex items-end mt-[60px] max-md:hidden">
@@ -206,6 +256,7 @@ export function CalcSection({ brands }) {
                 clothesByBrand.filter((obj) => obj.key == selectedCl)[0]
               }
               resultSizeData={resultSizeData}
+              selectedMetric={selectedMetric}
             />
           )}
         </div>
