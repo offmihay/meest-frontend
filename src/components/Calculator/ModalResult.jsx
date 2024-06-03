@@ -1,14 +1,9 @@
 import React from "react";
 import dataNames from "./dataNames";
 import Measure from "react-measure";
+import { useTranslation } from "react-i18next";
 
-export function ModalResult({
-  onClickClose,
-  gender,
-  clothesType,
-  resultSizeData,
-  selectedMetric,
-}) {
+export function ModalResult({ onClickClose, gender, clothesType, resultSizeData, selectedMetric }) {
   const calculateFontSize = (value, steps) => {
     if (steps === 1 || steps === 2) {
       return value;
@@ -26,16 +21,11 @@ export function ModalResult({
     }, {});
   };
 
-  const matchingParameters = renameKeys(
-    resultSizeData.body_parameters,
-    dataNames.parametersList
-  );
+  const matchingParameters = renameKeys(resultSizeData.body_parameters, dataNames.parametersList);
 
   return (
     <div className="absolute w-full h-full bg-white left-0 top-0 rounded-[40px] shadow-box pb-[30px] px-[20px] py-[65px] sm:px-[40px] lg:py-[45px] md:px-[60px] lg:px-[100px] z-20 shadow-box appear-animation-result">
-      <h2 className="text-sm-h sm:text-md-h lg:text-lg-h text-center">
-        Рекомендований розмір
-      </h2>
+      <h2 className="text-sm-h sm:text-md-h lg:text-lg-h text-center">Рекомендований розмір</h2>
       <div className="flex justify-between mb-8 mt-8 xs:mt-20 sm:mt-14 md:mt-20 gap-8 md:gap-16">
         <Measure bounds>
           {({ measureRef, contentRect }) => {
@@ -48,10 +38,7 @@ export function ModalResult({
                 ref={measureRef}
                 className="max-w-[180px] sm:max-w-[210px] md:max-w-[250px] m-auto relative"
               >
-                <img
-                  src={`${import.meta.env.BASE_URL}assets/images/size-info.png`}
-                  alt=""
-                />
+                <img src={`${import.meta.env.BASE_URL}assets/images/size-info.png`} alt="" />
                 <div className="size-result">
                   <span style={{ fontSize }} className="select-none">
                     {resultSizeData.size}
@@ -69,15 +56,11 @@ export function ModalResult({
               </p>
             </div>
             <div className="flex justify-center items-center rounded-full gradient-background text-white min-w-[120px] py-[5px] px-6">
-              <p className="font-bold tracking-wider text-center">
-                {clothesType.name_UA}
-              </p>
+              <p className="font-bold tracking-wider text-center">{clothesType.name}</p>
             </div>
           </div>
           <p className="text-[18px] lg:text-[22px] text-[#787474] max-w-[450px] md:pb-4 lg:pb-8 max-md:hidden text-center">
-            <span className="text-[#000000]">
-              Знайдено за такими параметрами:
-            </span>
+            <span className="text-[#000000]">Знайдено за такими параметрами:</span>
             <br></br>
             {Object.entries(matchingParameters).map(([key, value], index) => (
               <p key={index}>

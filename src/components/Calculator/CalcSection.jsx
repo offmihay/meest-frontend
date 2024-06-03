@@ -8,11 +8,10 @@ import SwitchBar from "./SwitchBar";
 import { ModalResult } from "./ModalResult";
 import CustomSelect from "./CustomSelect";
 import { fetchJson, postJson } from "../../api";
+import { useTranslation } from "react-i18next";
 
-export function CalcSection({ brands }) {
-  const [selectedGender, setSelectedGender] = useState(
-    Object.keys(dataNames.gendersList)[0]
-  );
+export function CalcSection() {
+  const [selectedGender, setSelectedGender] = useState(Object.keys(dataNames.gendersList)[0]);
   const [selectedBrand, setSelectedBrand] = useState("none");
   const [selectedCl, setSelectedCl] = useState("none");
   const [inputData, setInputData] = useState({});
@@ -102,23 +101,16 @@ export function CalcSection({ brands }) {
         onClick={() => handleGenderClick(gender)}
         onChange={handleInputChange}
         isSelected={selectedGender === gender}
-        bodyParameters={
-          clothesByBrand.filter((obj) => obj.key == selectedCl)[0]
-        }
+        bodyParameters={clothesByBrand.filter((obj) => obj.key == selectedCl)[0]}
       />
     ));
   };
-  const hasAllKeys = (obj, keys) =>
-    keys.every((key) => key in obj && obj[key] !== "");
+  const hasAllKeys = (obj, keys) => keys.every((key) => key in obj && obj[key] !== "");
 
-  const isOptionsSelected = () =>
-    selectedBrand !== "none" && selectedCl !== "none";
+  const isOptionsSelected = () => selectedBrand !== "none" && selectedCl !== "none";
 
   const isInputFilled = () =>
-    hasAllKeys(
-      inputData,
-      clothesByBrand.filter((obj) => obj.key == selectedCl)[0].body_parts
-    );
+    hasAllKeys(inputData, clothesByBrand.filter((obj) => obj.key == selectedCl)[0].body_parts);
 
   const isCalcEnabled = isOptionsSelected() && isInputFilled();
 
@@ -144,13 +136,10 @@ export function CalcSection({ brands }) {
         if (selectedMetric == "in") {
           convertedData = {
             ...data,
-            body_parameters: Object.keys(data.body_parameters).reduce(
-              (acc, key) => {
-                acc[key] = (data.body_parameters[key] / 2.54).toFixed(1);
-                return acc;
-              },
-              {}
-            ),
+            body_parameters: Object.keys(data.body_parameters).reduce((acc, key) => {
+              acc[key] = (data.body_parameters[key] / 2.54).toFixed(1);
+              return acc;
+            }, {}),
           };
         } else {
           convertedData = data;
@@ -163,6 +152,9 @@ export function CalcSection({ brands }) {
       });
   };
 
+  const possibleSystems = clothesByBrand.filter((item) => item.key === selectedCl)[0]
+    ?.unique_size_systems;
+
   return (
     <>
       <div className="flex flex-col items-center py-2 w-full">
@@ -171,16 +163,11 @@ export function CalcSection({ brands }) {
             showResultMenu ? "" : "shadow-box"
           }`}
         >
-          <h2 className="text-center text-sm-h sm:text-md-h lg:text-lg-h">
-            Калькулятор розмірів
-          </h2>
+          <h2 className="text-center text-sm-h sm:text-md-h lg:text-lg-h">Калькулятор розмірів</h2>
           <div className="absolute left-5 right-5 mt-4 md:pb-10 md:pl-10 md:right-10">
             <div className="text-sm-p sm:text-md-p lg:text-lg-p flex items-center max-xs:gap-1 gap-3 justify-around md:mt-[-50px] lg:mt-[-40px] md:flex-col md:items-end md:right-10 max-xs:flex-wrap">
               <div className="max-md:hidden">
-                <SwitchBar
-                  onChange={handleMetricChange}
-                  height={30}
-                ></SwitchBar>
+                <SwitchBar onChange={handleMetricChange} height={30}></SwitchBar>
               </div>
               <CustomSelect
                 value={selectedBrand}
@@ -200,7 +187,7 @@ export function CalcSection({ brands }) {
                 options={["none", ...clothesByBrand.map((item) => item.key)]}
                 translateMap={clothesByBrand.reduce(
                   (acc, curr) => {
-                    acc[curr.key] = curr.name_UA;
+                    acc[curr.key] = curr.name;
                     return acc;
                   },
                   { none: "Тип одягу" }
@@ -209,39 +196,36 @@ export function CalcSection({ brands }) {
               <CustomSelect
                 disabled={
                   clothesByBrand.length !== 0 && selectedCl !== "none"
-                    ? clothesByBrand.filter(
-                        (item) => item.key === selectedCl
-                      )[0]?.unique_size_systems.length === 0
+                    ? clothesByBrand.filter((item) => item.key === selectedCl)[0]
+                        ?.unique_size_systems.length === 0
                     : true
                 }
                 value={selectedSizeSystem}
                 onChange={handleSizeSystemChange}
                 options={
                   clothesByBrand.length !== 0 && selectedCl !== "none"
-                    ? clothesByBrand.filter(
-                        (item) => item.key === selectedCl
-                      )[0]?.unique_size_systems || []
+                    ? Object.keys(possibleSystems) || []
                     : ["none"]
                 }
-                translateMap={{
-                  none: "Система вимірювання",
-                  INT: "INT: Міжнародна система",
-                  EU: "EU: Європейська система",
-                  US: "US: Американська система",
-                  UK: "UK: Британська система",
-                }}
+                translateMap={
+                  clothesByBrand.length !== 0 && selectedCl !== "none"
+                    ? Object.keys(possibleSystems).reduce(
+                        (acc, key) => {
+                          acc[key] = `${key}: ${possibleSystems[key]} система`;
+                          return acc;
+                        },
+                        { none: "Система вимірювання" }
+                      )
+                    : { none: "Система вимірювання" }
+                }
               />
             </div>
           </div>
-          <div className="flex items-end mt-[60px] max-md:hidden">
-            {personTypeElements()}
-          </div>
+          <div className="flex items-end mt-[60px] max-md:hidden">{personTypeElements()}</div>
           <div className="mt-[80px] xs:mt-[50px] md:hidden">
             <Slider
               onChange={handleCarouselChange}
-              selectedItem={Object.keys(dataNames.gendersList).indexOf(
-                selectedGender
-              )}
+              selectedItem={Object.keys(dataNames.gendersList).indexOf(selectedGender)}
               displayItems={1}
               loop={false}
             >
@@ -252,20 +236,17 @@ export function CalcSection({ brands }) {
             <ModalResult
               onClickClose={() => setShowResultMenu(false)}
               gender={selectedGender}
-              clothesType={
-                clothesByBrand.filter((obj) => obj.key == selectedCl)[0]
-              }
+              clothesType={clothesByBrand.filter((obj) => obj.key == selectedCl)[0]}
               resultSizeData={resultSizeData}
               selectedMetric={selectedMetric}
             />
           )}
         </div>
-        <Button
-          disabled={!isCalcEnabled || showResultMenu == true}
-          onClick={handleCalc}
-        >
-          Розрахувати
-        </Button>
+        <div className=" mt-3 mb-12">
+          <Button disabled={!isCalcEnabled || showResultMenu == true} onClick={handleCalc}>
+            Розрахувати
+          </Button>
+        </div>
       </div>
     </>
   );

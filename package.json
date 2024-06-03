@@ -11,9 +11,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "i18next": "^23.11.5",
+    "i18next-browser-languagedetector": "^8.0.0",
+    "i18next-http-backend": "^2.5.2",
     "owl.carousel": "^2.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-i18next": "^14.1.2",
     "react-measure": "^2.5.2",
     "react-multi-carousel": "^2.8.4",
     "react-owl-carousel": "^2.3.3",
@@ -22,9 +26,6 @@
     "react-router-dom": "^6.22.3",
     "react-switch": "^7.0.0",
     "yarn": "^1.22.21"
-  },
-  "engines": {
-    "node": "20.x"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { DescriptionInfo } from "../InfoContent/DescriptonInfo";
-import { BrandsInfo } from "../InfoContent/BrandsInfo";
-import { SwitchInfo } from "../InfoContent/SwitchInfo";
-import { CalcSection } from "../Calculator/CalcSection";
-import { fetchJson } from "../../api";
+import { DescriptionInfo } from "../components/InfoContent/DescriptonInfo";
+import { BrandsInfo } from "../components/InfoContent/BrandsInfo";
+import { SwitchInfo } from "../components/InfoContent/SwitchInfo";
+import { CalcSection } from "../components/Calculator/CalcSection";
+import { fetchJson } from "../api";
+import LanguageSwitcher from "../utils/LanguageSwitcher";
 
 export function HomePage() {
   const [brands, setBrands] = useState([]);
@@ -22,9 +23,7 @@ export function HomePage() {
       .finally(() => {
         setIsBrandsLoading(false);
       });
-
   }, []);
-
 
   return (
     <>
@@ -47,9 +46,10 @@ export function HomePage() {
       </section>
       <section id="calc-section">
         <div className="container mx-auto">
-          <CalcSection brands={brands} />
+          <CalcSection />
         </div>
       </section>
+      {/* <LanguageSwitcher /> */}
     </>
   );
 }

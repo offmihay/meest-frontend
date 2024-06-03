@@ -1,0 +1,23 @@
+{
+  "clothes": {
+    "blouse": "Blouse",
+    "shoes": "Shoes",
+    "t_shirt": "T-Shirt",
+    "sweater": "Sweater",
+    "shirt": "Shirt",
+    "undershirt": "Undershirt",
+    "jacket": "Jacket",
+    "shorts": "Shorts",
+    "dress": "Dress",
+    "jeans": "Jeans",
+    "pants": "Pants",
+    "coat": "Coat",
+    "suit": "Suit",
+    "skirt": "Skirt",
+    "hoodie": "Hoodie",
+    "cardigan": "Cardigan",
+    "leggings": "Leggings",
+    "jumpsuit": "Jumpsuit",
+    "swimsuit": "Swimsuit"
+  }
+}

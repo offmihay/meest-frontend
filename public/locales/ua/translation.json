@@ -1,0 +1,23 @@
+{
+  "clothes": {
+    "blouse": "Блузка",
+    "shoes": "Туфлі",
+    "t_shirt": "Футболка",
+    "sweater": "Светр",
+    "shirt": "Сорочка",
+    "undershirt": "Нижня Сорочка",
+    "jacket": "Піджак",
+    "shorts": "Шорти",
+    "dress": "Сукня",
+    "jeans": "Джинси",
+    "pants": "Штани",
+    "coat": "Пальто",
+    "suit": "Костюм",
+    "skirt": "Спідниця",
+    "hoodie": "Худі",
+    "cardigan": "Кардиган",
+    "leggings": "Легінси",
+    "jumpsuit": "Комбінезон",
+    "swimsuit": "Купальник"
+  }
+}

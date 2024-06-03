@@ -1,5 +1,5 @@
-const BASE_URL = "https://meest-back-e18db4f449d7.herokuapp.com";
-// const BASE_URL = "http://localhost:3000";
+// const BASE_URL = "https://meest-back-e18db4f449d7.herokuapp.com";
+const BASE_URL = "http://192.168.1.143:3000";
 
 export async function fetchJson(url, options) {
   const response = await fetch(`${BASE_URL}/${url}`, options);

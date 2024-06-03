@@ -10,7 +10,7 @@ export function Button({
 }) {
   return (
     <button
-      className="btn-success mt-3 mb-12"
+      className="btn-success"
       onClick={onClick}
       style={{
         backgroundColor: color,
