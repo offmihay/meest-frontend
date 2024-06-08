@@ -8,7 +8,6 @@ import SwitchBar from "./SwitchBar";
 import { ModalResult } from "./ModalResult";
 import CustomSelect from "./CustomSelect";
 import { fetchJson, postJson } from "../../api";
-import { useTranslation } from "react-i18next";
 
 export function CalcSection() {
   const [selectedGender, setSelectedGender] = useState(Object.keys(dataNames.gendersList)[0]);
@@ -71,6 +70,9 @@ export function CalcSection() {
 
   const handleClChange = (Cl) => {
     handleSelectionChange(Cl, setSelectedCl);
+    setSelectedSizeSystem(
+      Object.keys(clothesByBrand.filter((obj) => obj.key == Cl)[0].unique_size_systems)[0]
+    );
   };
 
   const handleSizeSystemChange = (system) => {
@@ -128,7 +130,7 @@ export function CalcSection() {
       gender: selectedGender,
       brand: selectedBrand,
       cloth: selectedCl,
-      size_system: selectedSizeSystem == "" ? "INT" : selectedSizeSystem,
+      size_system: selectedSizeSystem,
       inputData: convertedData,
     })
       .then((data) => {

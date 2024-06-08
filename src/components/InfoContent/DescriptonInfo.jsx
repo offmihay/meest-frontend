@@ -1,8 +1,6 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 
 export function DescriptionInfo() {
-  const { t } = useTranslation();
   return (
     <div className="w-full flex justify-between relative my-8">
       <div className="max-w-[530px] text-center mt-[180px] sm:mt-[200px]">

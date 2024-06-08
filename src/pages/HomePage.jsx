@@ -4,7 +4,6 @@ import { BrandsInfo } from "../components/InfoContent/BrandsInfo";
 import { SwitchInfo } from "../components/InfoContent/SwitchInfo";
 import { CalcSection } from "../components/Calculator/CalcSection";
 import { fetchJson } from "../api";
-import LanguageSwitcher from "../utils/LanguageSwitcher";
 
 export function HomePage() {
   const [brands, setBrands] = useState([]);
@@ -49,7 +48,6 @@ export function HomePage() {
           <CalcSection />
         </div>
       </section>
-      {/* <LanguageSwitcher /> */}
     </>
   );
 }

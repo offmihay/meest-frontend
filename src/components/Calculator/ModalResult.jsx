@@ -1,7 +1,6 @@
 import React from "react";
 import dataNames from "./dataNames";
 import Measure from "react-measure";
-import { useTranslation } from "react-i18next";
 
 export function ModalResult({ onClickClose, gender, clothesType, resultSizeData, selectedMetric }) {
   const calculateFontSize = (value, steps) => {
