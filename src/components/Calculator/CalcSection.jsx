@@ -129,46 +129,7 @@ export function CalcSection() {
 
   const isCalcEnabled = isOptionsSelected() && isInputFilled();
 
-  // const handleCalc = () => {
-  //   let convertedData;
-  //   if (selectedMetric == "in") {
-  //     convertedData = Object.keys(inputData).reduce((acc, key) => {
-  //       acc[key] = (parseFloat(inputData[key]) * 2.54).toString();
-  //       return acc;
-  //     }, {});
-  //   } else {
-  //     convertedData = inputData;
-  //   }
-  //   postJson("api/calculate-size", {
-  //     gender: selectedGender,
-  //     brand: selectedBrand,
-  //     cloth: selectedCl,
-  //     size_system: selectedSizeSystem,
-  //     inputData: convertedData,
-  //   })
-  //     .then((data) => {
-  //       let convertedData;
-  //       if (selectedMetric == "in") {
-  //         convertedData = {
-  //           ...data,
-  //           body_parameters: Object.keys(data.body_parameters).reduce(
-  //             (acc, key) => {
-  //               acc[key] = (data.body_parameters[key] / 2.54).toFixed(1);
-  //               return acc;
-  //             },
-  //             {},
-  //           ),
-  //         };
-  //       } else {
-  //         convertedData = data;
-  //       }
-  //       setResultSizeData(convertedData);
-  //       setShowResultMenu(true);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // };
+
 
   const handleCalc = () => {
     let convertedData;
@@ -208,8 +169,9 @@ export function CalcSection() {
       })
       .catch((err) => {
         console.error(err);
+
         setErrorMessage(
-          "An error occurred while calculating the size. Please try again.",
+          "Виникла помилка під час розрахунку розміру. Змініть дані та спробуйте ще раз.",
         );
       });
   };
