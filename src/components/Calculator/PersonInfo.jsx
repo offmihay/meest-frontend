@@ -3,7 +3,15 @@ import inputPositions from "./inputPositions";
 import dataNames from "./dataNames";
 
 export function PersonInfo(props) {
-  const { gender, clothesType, inputData, isSelected, onClick, onChange, bodyParameters } = props;
+  const {
+    gender,
+    clothesType,
+    inputData,
+    isSelected,
+    onClick,
+    onChange,
+    bodyParameters,
+  } = props;
 
   return (
     <div

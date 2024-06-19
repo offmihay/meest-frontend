@@ -1,7 +1,13 @@
 import React from "react";
 import { Carousel } from "react-responsive-carousel";
 
-export function Slider({ children, onChange, selectedItem, displayItems, loop }) {
+export function Slider({
+  children,
+  onChange,
+  selectedItem,
+  displayItems,
+  loop,
+}) {
   return (
     <>
       <Carousel

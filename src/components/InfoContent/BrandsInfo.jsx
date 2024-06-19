@@ -23,10 +23,7 @@ export function BrandsInfo({ brands, isLoading }) {
                 key={brand.key}
                 className="flex items-center justify-center px-2 sm:px-3 md:px-8 xl:px-12 w-full h-full"
               >
-                <img
-                  src={brand.img_url}
-                  alt={brand.key}
-                />
+                <img src={brand.img_url} alt={brand.key} />
               </div>
             ))}
           </MultiSlider>
